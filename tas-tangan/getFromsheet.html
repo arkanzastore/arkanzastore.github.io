@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Menampilkan Data dari Google Spreadsheet</title>
+</head>
+<body>
+
+  <script>
+    // Fungsi async untuk mengambil data dari Google Spreadsheet menggunakan API
+async function getData() {
+  const spreadsheetId = '1otcAWXIzho1LZ3A72UR5gzlp6ldoF-AqSDdL38pVv2w';
+
+  // Memuat data spreadsheet menggunakan Google Sheets API
+  const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Sheet1!E2?key=AIzaSyC6qfLrTWsMv7RIDdutBaIcKmpZCZM8LVs`);
+  const data = await response.json();
+
+  // Mendapatkan nilai dari respons JSON
+  const value = data.values[0][0];
+
+  // Mencetak nilai ke dalam konsol
+  console.log(`Nilai di kolom E2: ${value}`);
+
+  
+// Mengambil elemen countdown
+var countdownElement = document.getElementById("countdown");
+
+// Menghitung waktu akhir untuk hitung mundur
+var endTime = data.values[0][0];
+endTime.setDate(endTime.getDate() + 1); // Menambahkan 1 hari
+
+// Memperbarui hitungan mundur setiap detik
+var countdownInterval = setInterval(updateCountdown, 1000);
+
+function updateCountdown() {
+  // Mendapatkan waktu sekarang
+  var currentTime = new Date();
+
+  // Menghitung selisih waktu antara waktu akhir dan waktu sekarang
+  var timeDiff = endTime - currentTime;
+
+  // Mengonversi selisih waktu menjadi hari, jam, menit, dan detik
+  var days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+  // Mengubah format hitungan mundur menjadi teks
+  var countdownText = days + " hari, " + hours + " jam, " + minutes + " menit, " + seconds + " detik";
+
+  // Memperbarui teks hitungan mundur pada elemen countdown
+  countdownElement.innerText = countdownText;
+
+  // Menghentikan hitung mundur jika waktu akhir telah tercapai
+  if (timeDiff <= 0) {
+    clearInterval(countdownInterval);
+    countdownElement.innerText = "Promo telah berakhir!";
+  }
+}
+}
+
+// Memanggil fungsi untuk mengambil data saat halaman selesai dimuat
+document.addEventListener('DOMContentLoaded', () => {
+  getData().catch(console.error);
+});
+
+  </script>
+</body>
+</html>

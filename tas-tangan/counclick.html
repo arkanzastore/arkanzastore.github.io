@@ -1,0 +1,78 @@
+<head>
+    <style>
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      body::-webkit-scrollbar {
+        display: none;
+      }
+      /* Hide scrollbar for IE, Edge and Firefox */
+      body {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+      }
+      .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+      }
+      .whatsapp-button {
+        background-color: green;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+      }
+      .whatsapp-icon {
+        margin-right: 5px;
+        width: 20px;
+        height: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a id="submitButton1" class="whatsapp-button" href="https://api.whatsapp.com/send?phone=081808823904&text=Halo%2C+saya+tertarik+dengan+promo+Handbagnya.+Apakah+promonya+masih+ada%3F" target="_blank">
+        <img class="whatsapp-icon" src="https://i.ibb.co/kDmxbyv/walogos.png" alt="WhatsApp Icon">
+        Beli Sekarang | WA
+      </a>
+    </div>
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+      const submitButton = document.getElementById('submitButton1');
+  
+  submitButton.addEventListener('click', function(event) {
+    event.preventDefault(); // Mencegah aksi default pengalihan ke URL WhatsApp
+  
+    console.log('WA Button 1');
+    // Tambahkan logika lain di sini jika diperlukan
+    var name = "WA Button 1";
+  
+    // Mengirim data ke Google Sheets menggunakan Ajax
+    $.ajax({
+      url: 'https://script.google.com/macros/s/AKfycbxmqldm2UIpiSRIEqvHsGTZeu86LF27QVr9qlUSgsaNfxz6JRTQhkcRwFJ5Uhe04-oYag/exec',
+      method: 'GET',
+      dataType: 'text',
+      data: {
+        name: name
+        // data: "cek"
+      },
+      success: function(response) {
+        console.log('Data berhasil ditambahkan ke Google Sheets.');
+      },
+      error: function(xhr, status, error) {
+        console.error('Terjadi kesalahan:', error);
+      }
+    });
+  
+    // Mengarahkan ke URL WhatsApp setelah mencetak pesan ke konsol
+    window.location.href = this.href;
+  });
+  
+    </script>
+  </body>
