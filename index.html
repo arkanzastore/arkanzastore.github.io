@@ -526,7 +526,7 @@ const submitButton2 = document.getElementById('submitButton2');
   
   submitButton1.addEventListener('click', function(event) {
     event.preventDefault(); // Mencegah aksi default pengalihan ke URL WhatsApp
-  
+	fbq('track', 'Purchase', {currency: "USD", value: 30.00});
     console.log('WA Button 1');
     // Tambahkan logika lain di sini jika diperlukan
     var name = "WA Button 1 di Klik";
@@ -554,7 +554,7 @@ const submitButton2 = document.getElementById('submitButton2');
   
   submitButton2.addEventListener('click', function(event) {
     event.preventDefault(); // Mencegah aksi default pengalihan ke URL WhatsApp
-  
+	fbq('track', 'Purchase', {currency: "USD", value: 30.00});
     console.log('WA Button 2');
     // Tambahkan logika lain di sini jika diperlukan
     var name = "WA Button 2 di Klik";
