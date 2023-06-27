@@ -110,12 +110,13 @@
 								  <p style="font-family: 'Source Sans', sans-serif; font-size: 30px; font-weight: bold; margin-bottom: 10px; color: #212121; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Beli 1 Gratis 1</p> 
 								  <p style="color: #212121;">"Dapatkan Keuntungan Ganda dengan Membeli Satu Handbag dan Mendapatkan Satu Lagi Secara Gratis!"</p> 
 								  <p class="italic" style="color: #000000; font-family: Arial, sans-serif; font-weight: bold; font-style: italic; margin-bottom: 14px;">Bisa Bayar di Tempat ke Seluruh Indonesia</p>
+								 <!--
 								  <div class="container" style="display: flex; align-items: center; justify-content: center; flex-direction: column; height: 25vh; font-family: Arial, sans-serif; margin-bottom: 20px;">
 									<a id="submitButton1" class="whatsapp-button" href="https://api.whatsapp.com/send?phone=081808823904&text=Halo%2C+saya+tertarik+dengan+promo+Handbagnya.+Apakah+promonya+masih+ada%3F" target="_blank" style="background-color: green; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 20px; display: flex; align-items: center;">
 									  <img class="whatsapp-icon" src="https://i.ibb.co/kDmxbyv/walogos.png" alt="WhatsApp Icon" style="margin-right: 5px; width: 20px; height: 20px;">
 									  Beli Sekarang | WA
 									</a>
-								  </div>
+								  </div> --> 
 								  <p style="font-family: 'Open Sans', sans-serif; font-size: 17px; font-style: italic; color: #FFFFFF; background-color: #21100c; padding: 5px;">
 									"Segera Manfaatkan Kesempatan Ini dan Tambah Koleksi Hand Bag Anda Tanpa Biaya Tambahan!"
 								</p>
@@ -522,9 +523,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-const submitButton1 = document.getElementById('submitButton1');
+/* const submitButton1 = document.getElementById('submitButton1'); */
 const submitButton2 = document.getElementById('submitButton2');
-  
+
+/*
   submitButton1.addEventListener('click', function(event) {
     event.preventDefault(); // Mencegah aksi default pengalihan ke URL WhatsApp
 	fbq('track', 'Purchase', {currency: "USD", value: 30.00});
@@ -551,35 +553,44 @@ const submitButton2 = document.getElementById('submitButton2');
   
     // Mengarahkan ke URL WhatsApp setelah mencetak pesan ke konsol
     window.location.href = this.href;
-  });
+  }); */
   
   submitButton2.addEventListener('click', function(event) {
-    event.preventDefault(); // Mencegah aksi default pengalihan ke URL WhatsApp
-	fbq('track', 'Purchase', {currency: "USD", value: 30.00});
-    console.log('WA Button 2');
-    // Tambahkan logika lain di sini jika diperlukan
-    var name = "WA Button 2 di Klik";
-  
-    // Mengirim data ke Google Sheets menggunakan Ajax
-    $.ajax({
-      url: 'https://script.google.com/macros/s/AKfycbxmqldm2UIpiSRIEqvHsGTZeu86LF27QVr9qlUSgsaNfxz6JRTQhkcRwFJ5Uhe04-oYag/exec',
-      method: 'GET',
-      dataType: 'text',
-      data: {
-        name: name
-        // data: "cek"
-      },
-      success: function(response) {
-        console.log('Data berhasil ditambahkan ke Google Sheets.');
-      },
-      error: function(xhr, status, error) {
-        console.error('Terjadi kesalahan:', error);
-      }
-    });
-  
-    // Mengarahkan ke URL WhatsApp setelah mencetak pesan ke konsol
-    window.location.href = this.href;
-  });
+  event.preventDefault();
+  fbq('track', 'Purchase', {currency: 'USD', value: 30.00});
+  console.log('WA Button 2');
+  var name = 'WA Button 2 di Klik';
+  var data1 = 'tes1';
+  var data2 = 'tes2';
+  var data3 = 'tes3';
+
+  var url = 'https://script.google.com/macros/s/AKfycbwVYEktiH_bNJxhXzwynos9-LF6S9tOLTa_d8gsjymtK-QG_gyIVGDTHlTJBDMrqqEAmQ/exec'; // Ganti dengan URL web app yang telah Anda salin
+  var data = {
+    name: name,
+    data1: data1,
+    data2: data2,
+    data3: data3
+  };
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', url, true);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      console.log('Data berhasil ditambahkan ke Google Sheets.');
+    } else {
+      console.error('Terjadi kesalahan:', xhr.statusText);
+    }
+  };
+
+  var params = Object.keys(data).map(function(key) {
+    return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
+  }).join('&');
+
+  xhr.send(params);
+});
+
+
 
 			</script>
 			
